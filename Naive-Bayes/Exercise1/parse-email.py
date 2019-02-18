@@ -119,7 +119,6 @@ def cleanhtml(raw_html):
     cleanr = re.compile('<[^<]+?>')
     cleantext = re.sub(cleanr, '', raw_html)
     cleantext = BeautifulSoup(cleantext, "html.parser").text
-    cleantext = cleantext.decode('utf8').encode('ascii', errors='ignore')
     return cleantext
 
 #Extract the emailfile from the given filename and then cleans the html tags
