@@ -23,35 +23,35 @@ def readEmail(thread_name, email_frame):
         thread_name.exit()
  
 
-def cleanhtml(raw_html):
-    #cleanr = re.compile('<[^<]+?>')
-    #cleantext = re.sub(cleanr, '', raw_html)
-    #removes the unnecessary unicode characters
-    #cleantext = raw_html.encode('utf-8', 'ignore')
-    cleantext = re.sub(r'\\[Uu][a-zA-Z0-9]{4}', '', raw_html)
-    #cleantext = BeautifulSoup(cleantext) 
-    cleantext = cleanMe(cleantext)
-    return cleantext
+# def cleanhtml(raw_html):
+#     #cleanr = re.compile('<[^<]+?>')
+#     #cleantext = re.sub(cleanr, '', raw_html)
+#     #removes the unnecessary unicode characters
+#     #cleantext = raw_html.encode('utf-8', 'ignore')
+#     cleantext = re.sub(r'\\[Uu][a-zA-Z0-9]{4}', '', raw_html)
+#     #cleantext = BeautifulSoup(cleantext) 
+#     cleantext = cleanMe(cleantext)
+#     return cleantext
 
-#Source: https://stackoverflow.com/questions/30565404/remove-all-style-scripts-and-html-tags-from-an-html-page/30565420
-def cleanMe(html):
-    soup = BeautifulSoup(html,"html.parser") # create a new bs4 object from the html data loaded
-    for script in soup(["script", "style"]): # remove all javascript and stylesheet code
-        script.extract()
-    # get text
-    text = soup.get_text()
-    # break into lines and remove leading and trailing space on each
-    lines = (line.strip() for line in text.splitlines())
-    # break multi-headlines into a line each
-    chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
-    # drop blank lines
-    text = ' '.join(chunk for chunk in chunks if chunk)
-    return text.replace('\t','')
+# #Source: https://stackoverflow.com/questions/30565404/remove-all-style-scripts-and-html-tags-from-an-html-page/30565420
+# def cleanMe(html):
+#     soup = BeautifulSoup(html,"html.parser") # create a new bs4 object from the html data loaded
+#     for script in soup(["script", "style"]): # remove all javascript and stylesheet code
+#         script.extract()
+#     # get text
+#     text = soup.get_text()
+#     # break into lines and remove leading and trailing space on each
+#     lines = (line.strip() for line in text.splitlines())
+#     # break multi-headlines into a line each
+#     chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
+#     # drop blank lines
+#     text = ' '.join(chunk for chunk in chunks if chunk)
+#     return text.replace('\t','')
 
-#Source: https://stackoverflow.com/questions/20078816/replace-non-ascii-characters-with-a-single-space
-# and for the ord(): https://www.programiz.com/python-programming/methods/built-in/ord
-def deleteNonASCII(text):
-    return ''.join([i if ord(i) < 128 else '' for i in text])
+# #Source: https://stackoverflow.com/questions/20078816/replace-non-ascii-characters-with-a-single-space
+# # and for the ord(): https://www.programiz.com/python-programming/methods/built-in/ord
+# def deleteNonASCII(text):
+#     return ''.join([i if ord(i) < 128 else '' for i in text])
 
 #Extract the emailfile from the given filename and then cleans the html tags
 def parseEmailFromFile(emailFile):
