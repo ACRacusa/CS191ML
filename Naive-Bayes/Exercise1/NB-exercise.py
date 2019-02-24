@@ -101,16 +101,21 @@ if __name__ == "__main__":
    spamClassifier['text'] = spamClassifier['text'].str.lower()
    #remove punctuations
    spamClassifier['text'] = spamClassifier['text'].str.replace('[^\w\s]', '') 
-   #replace '' values with NAN
-   spamClassifier['text'].replace('', np.nan, inplace=True)
-   #drop NAN values
-   spamClassifier['text'].dropna(how='any', inplace=True)
+
 
    # tokenize the data and remove stopwords 
    spamClassifier['text'] = spamClassifier['text'].apply(text_process)
+    #replace '' values with NAN
+   spamClassifier['text'].replace('', np.nan, inplace=True)
+   #drop NAN values
+   spamClassifier['text'].dropna(how='any', inplace=True)
    #spamClassifier['text'] = spamClassifier['text'].apply(nltk.word_tokenize) 
-#    #apply stemming
-#    spamClassifier['text'] = spamClassifier['text'].apply(stem_list)
+
+   #apply convert the list of words to space-seperated string
+   #spamClassifier['text'] = spamClassifier['text'].apply(lambda x: ' '.join(x))
+   
+   #count_vect = CountVectorizer()  
+   #counts = count_vect.fit_transform(spamClassifier['text'])  
 
 #    #remove stopwords
 #    spamClassifier['text'] = spamClassifier['text'].apply(remove_stops)
