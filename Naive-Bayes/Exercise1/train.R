@@ -5,7 +5,7 @@ library(RWeka)
 library(caret)
 
 preprocessed <-
-  read.csv(file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed-gen-1040am.csv", head =
+  read.csv(file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed.csv", head =
              TRUE, sep = ",")
 preprocessedDF <- as.data.frame(preprocessed)
 preprocessedReduced <-

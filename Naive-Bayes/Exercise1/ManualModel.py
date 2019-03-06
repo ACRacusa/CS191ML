@@ -12,6 +12,7 @@ from sklearn.metrics import make_scorer, accuracy_score, classification_report, 
 
 corpus_url = 'C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/'
 preprocessedCSV = 'preprocessed.csv'
+preprocessedCSV_red = 'preprocessed-red.csv'
 
 def manual_NB(l, vocabTrain, vocabTest, targetTrain, targetTest,type):
   lamb = l
@@ -89,21 +90,21 @@ def train():
   X_general = df_general.drop(['tokenDF$is_spam'],axis=1)
   y_general = df_general['tokenDF$is_spam']
   
-  # df_reduced = pandas.read_csv('ham-spam-dataset-reduced.csv')
-  # X_reduced = df_reduced.drop(['case_decision','target'],axis=1)
-  # y_reduced = df_reduced['target']
+  df_reduced = pandas.read_csv(os.path.join(corpus_url,preprocessedCSV_red))
+  X_reduced = df_reduced.drop(['tokenDF$is_spam'],axis=1)
+  y_reduced = df_reduced['tokenDF$is_spam']
   
   vocabTrain_general, vocabTest_general, targetTrain_general, targetTest_general = train_test_split(X_general, y_general, test_size=0.30)
   
-  # vocabTrain_reduced = X_reduced.loc[vocabTrain_general.index]
-  # vocabTest_reduced = X_reduced.loc[vocabTest_general.index]
-  # targetTrain_reduced = y_reduced.loc[targetTrain_general.index]
-  # targetTest_reduced = y_reduced.loc[targetTest_general.index]
+  vocabTrain_reduced = X_reduced.loc[vocabTrain_general.index]
+  vocabTest_reduced = X_reduced.loc[vocabTest_general.index]
+  targetTrain_reduced = y_reduced.loc[targetTrain_general.index]
+  targetTest_reduced = y_reduced.loc[targetTest_general.index]
   
   manual_NB(0,vocabTrain_general, vocabTest_general, targetTrain_general, targetTest_general ,"General")
-  #manual_NB(0,vocabTrain_reduced, vocabTest_reduced, targetTrain_reduced, targetTest_reduced, "Reduced")
+  manual_NB(0,vocabTrain_reduced, vocabTest_reduced, targetTrain_reduced, targetTest_reduced, "Reduced")
   manual_NB(1,vocabTrain_general, vocabTest_general, targetTrain_general, targetTest_general ,"General")
-  #manual_NB(1,vocabTrain_reduced, vocabTest_reduced, targetTrain_reduced, targetTest_reduced, "Reduced")
+  manual_NB(1,vocabTrain_reduced, vocabTest_reduced, targetTrain_reduced, targetTest_reduced, "Reduced")
   
   #sk_learn_NB(vocabTrain_general, vocabTest_general, targetTrain_general, targetTest_general ,"General")
   #sk_learn_NB(vocabTrain_reduced, vocabTest_reduced, targetTrain_reduced, targetTest_reduced, "Reduced")

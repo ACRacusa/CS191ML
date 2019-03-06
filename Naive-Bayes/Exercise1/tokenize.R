@@ -51,7 +51,7 @@ colnames(dataset_counts1) = c("count","word")
 dataset_counts1 = dataset_counts1[c(2,1)] 
 dataset_counts1 = dataset_counts1 %>% arrange(-count)
 
-write.table(dataset1, file = "dtm.csv", na="", sep=",")
+# write.table(dataset1, file = "dtm.csv", na="", sep=",")
 #############
 # m <- as.matrix(dtm1)
 # v <- sort(rowSums(m),decreasing=TRUE)
@@ -77,7 +77,7 @@ colnames(dataset_counts1) = c("count","word")
 dataset_counts1 = dataset_counts1[c(2,1)] 
 dataset_counts1 = dataset_counts1 %>% arrange(-count)
 
-write.table(dataset1, file = "dtm.csv", na="", sep=",")
+#write.table(dataset1, file = "dtm.csv", na="", sep=",")
 #############
 # m <- as.matrix(dtm1)
 # v <- sort(rowSums(m),decreasing=TRUE)

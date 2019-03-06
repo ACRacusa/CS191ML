@@ -1,5 +1,3 @@
-# CS191ML
-**Exercise 1**
 
 
 
