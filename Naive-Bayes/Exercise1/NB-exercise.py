@@ -3,13 +3,14 @@ import pandas as pd
 import numpy as np
 import mailparser
 import nltk
+import collections
 from bs4 import BeautifulSoup
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
+from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.naive_bayes import MultinomialNB
-
 stemming = PorterStemmer()
 stops = set(stopwords.words("english")) 
 path = 'C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/'
@@ -86,17 +87,31 @@ def remove_stops(row):
 
 def rejoin_words(row):
     my_list = row
-    joined_words = ( " ".join(my_list))
+    joined_words = (" ".join(my_list))
     return joined_words
+
+#source: https://stackoverflow.com/questions/12851791/removing-numbers-from-string
+def removeDigits(s):
+    return ''.join(filter(lambda x: not x.isdigit(), s))
+
+#souce: https://codereview.stackexchange.com/questions/186614/text-cleaning-script-producing-lowercase-words-with-minimal-punctuation
+def removeHttp(s):
+  pattern = re.compile('http[s]?(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+')
+  return pattern.sub('', s)
+
 if __name__ == "__main__":
    spamClassifier = pd.read_csv(os.path.join(path, csvFileName), usecols=['is_spam', 'text'])
    spamClassifier['text'] = spamClassifier['text'].astype(str)
    #spamClassifier = spamClassifier.iloc[0:5]
    spamClassifier['text'] = spamClassifier['text'].apply(deleteNonASCII)
    spamClassifier['text'] = spamClassifier['text'].apply(cleanhtml)
+   
+   #remove the numbers
+   spamClassifier['text'] = spamClassifier['text'].apply(removeDigits)
    #spamClassifier['text'].replace('', np.nan, inplace=True)
    #spamClassifier['text'].dropna(how='any', inplace=True)
    #lowercase
+   
    #spamClassifier['text'] = spamClassifier['text'].map(lambda x: x.lower()) 
    spamClassifier['text'] = spamClassifier['text'].str.lower()
    #remove punctuations
@@ -105,30 +120,53 @@ if __name__ == "__main__":
 
    # tokenize the data and remove stopwords 
    spamClassifier['text'] = spamClassifier['text'].apply(text_process)
-    #replace '' values with NAN
-   spamClassifier['text'].replace('', np.nan, inplace=True)
-   #drop NAN values
-   spamClassifier['text'].dropna(how='any', inplace=True)
+   
+   #remove the numbers
+   #spamClassifier['text'] = spamClassifier['text'].filter(lambda x: x.isalpha(), spamClassifier['text'])
+
    #spamClassifier['text'] = spamClassifier['text'].apply(nltk.word_tokenize) 
 
+   #print(spamClassifier['text'])
    #apply convert the list of words to space-seperated string
    #spamClassifier['text'] = spamClassifier['text'].apply(lambda x: ' '.join(x))
    
    #count_vect = CountVectorizer()  
    #counts = count_vect.fit_transform(spamClassifier['text'])  
 
-#    #remove stopwords
-#    spamClassifier['text'] = spamClassifier['text'].apply(remove_stops)
-
-#    spamClassifier['text'] = spamClassifier['text'].apply(rejoin_words)
+   #remove stopwords
+   spamClassifier['text'] = spamClassifier['text'].apply(remove_stops)
+   
    #nltk.download()
    #stemmer = PorterStemmer()
    #spamClassifier['text'] = spamClassifier['text'].apply(lambda x: [stemmer.stem(y) for y in x])  
-   
-   
+   #souce: https://www.guru99.com/stemming-lemmatization-python-nltk.html
+   wordnet_lemmatizer = WordNetLemmatizer()
+   spamClassifier['text'] = spamClassifier['text'].apply(lambda x: [wordnet_lemmatizer.lemmatize(y) for y in x])  
+   #spamClassifier['text'] = spamClassifier['text'].apply(rejoin_words)
+
+   spamClassifier['text'] = spamClassifier['text'].apply(removeHttp)
+   #replace '' values with NAN
+   spamClassifier['text'].replace('', np.nan, inplace=True)
+   #drop NAN values
+   spamClassifier['text'].dropna(how='any', inplace=True)
+
+   #print(spamClassifier['text'])
+   #vectorizer = CountVectorizer()
+   #bag_of_words = vectorizer.fit(spamClassifier['text']) 
+   #bag_of_words = vectorizer.transform(spamClassifier['text'])
+   #print(vectorizer.get_feature_names())
+  # print(bag_of_words)
+   #print()
    #print(spamClassifier)
+   #print(repr(bag_of_words))
+   #df = pd.DataFrame(bag_of_words.toarray(),columns = vectorizer.get_feature_names())
+   
+   #print(df)
+   #df = pd.concat([pd.Series(spamClassifier['is_spam'], index=df.index, name='is_spam'), df], axis=1)
+   #df['is_spam'] = spamClassifier['is_spam']
+   #print(df)
+   #df.to_csv(os.path.join(path, tokenizedData))
    spamClassifier.to_csv(os.path.join(path, tokenizedData))
    #print(spamClassifier.groupby('text').describe())
-   #Preprocess?
 
    
