@@ -1,0 +1,139 @@
+General  Vocabulary with Laplace Smoothing
+Accuracy:  0.4981879 
+[1] "Confusion Matrix"
+Confusion Matrix and Statistics
+
+          targetTest
+prediction    0    1
+         0 3726 7614
+         1 3740 7546
+                                          
+               Accuracy : 0.4982          
+                 95% CI : (0.4917, 0.5047)
+    No Information Rate : 0.67            
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : -0.0028         
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.4991          
+            Specificity : 0.4978          
+         Pos Pred Value : 0.3286          
+         Neg Pred Value : 0.6686          
+             Prevalence : 0.3300          
+         Detection Rate : 0.1647          
+   Detection Prevalence : 0.5012          
+      Balanced Accuracy : 0.4984          
+                                          
+       'Positive' Class : 0               
+                                          
+[1] "Precision"
+[1] 0.3285714
+[1] "Recall"
+[1] 0.4990624
+
+----------------------------------------------
+General  Vocabulary without Laplace Smoothing
+Accuracy:  0.6275082 
+[1] "Confusion Matrix"
+Confusion Matrix and Statistics
+
+          targetTest
+prediction     0     1
+         0  1040  2002
+         1  6426 13158
+                                          
+               Accuracy : 0.6275          
+                 95% CI : (0.6212, 0.6338)
+    No Information Rate : 0.67            
+    P-Value [Acc > NIR] : 1               
+                                          
+                  Kappa : 0.0085          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.13930         
+            Specificity : 0.86794         
+         Pos Pred Value : 0.34188         
+         Neg Pred Value : 0.67188         
+             Prevalence : 0.32997         
+         Detection Rate : 0.04596         
+   Detection Prevalence : 0.13445         
+      Balanced Accuracy : 0.50362         
+                                          
+       'Positive' Class : 0               
+                                          
+[1] "Precision"
+[1] 0.3418803
+[1] "Recall"
+[1] 0.1392982
+
+---------------------------------------------------
+Reduced  Vocabulary with Laplace Smoothing
+Accuracy:  0.6523469 
+[1] "Confusion Matrix"
+Confusion Matrix and Statistics
+
+          targetTest
+prediction     0     1
+         0   269   513
+         1  7353 14491
+                                          
+               Accuracy : 0.6523          
+                 95% CI : (0.6461, 0.6586)
+    No Information Rate : 0.6631          
+    P-Value [Acc > NIR] : 0.9997          
+                                          
+                  Kappa : 0.0014          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.03529         
+            Specificity : 0.96581         
+         Pos Pred Value : 0.34399         
+         Neg Pred Value : 0.66339         
+             Prevalence : 0.33687         
+         Detection Rate : 0.01189         
+   Detection Prevalence : 0.03456         
+      Balanced Accuracy : 0.50055         
+                                          
+       'Positive' Class : 0               
+                                          
+[1] "Precision"
+[1] 0.3439898
+[1] "Recall"
+[1] 0.03529257
+
+------------------------------------------
+Reduced  Vocabulary without Laplace Smoothing
+Accuracy:  0.6520817 
+[1] "Confusion Matrix"
+Confusion Matrix and Statistics
+
+          targetTest
+prediction     0     1
+         0   277   527
+         1  7345 14477
+                                          
+               Accuracy : 0.6521          
+                 95% CI : (0.6458, 0.6583)
+    No Information Rate : 0.6631          
+    P-Value [Acc > NIR] : 0.9998          
+                                          
+                  Kappa : 0.0016          
+ Mcnemar's Test P-Value : <2e-16          
+                                          
+            Sensitivity : 0.03634         
+            Specificity : 0.96488         
+         Pos Pred Value : 0.34453         
+         Neg Pred Value : 0.66341         
+             Prevalence : 0.33687         
+         Detection Rate : 0.01224         
+   Detection Prevalence : 0.03553         
+      Balanced Accuracy : 0.50061         
+                                          
+       'Positive' Class : 0               
+                                          
+[1] "Precision"
+[1] 0.3445274
+[1] "Recall"
+[1] 0.03634217
+---------------------------------------

@@ -18,7 +18,7 @@ tokenizedData = 'tokenizedData.csv'
 
 if __name__ == "__main__":
     spamClassifier = pd.read_csv(os.path.join(path, tokenizedData), usecols=['is_spam', 'text'])
-    spamClassifier = spamClassifier.iloc[0:100]
+    #spamClassifier = spamClassifier.iloc[0:100]
     print(spamClassifier.groupby('is_spam').count())
     proby_spam = 50199
     proby_ham = 25220

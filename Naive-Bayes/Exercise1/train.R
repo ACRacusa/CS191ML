@@ -3,24 +3,20 @@ library(tm)
 library(knitr)
 library(RWeka)
 library(caret)
-# library("tm")
-# library("SnowballC")
-# library("wordcloud")
-# library("RColorBrewer")
 
-# preprocessed <-
-#   read.csv(file = "C:/Users/Aldrin/Documents/preprocessed.csv", head =
-#              TRUE, sep = ",")
-# preprocessedDF <- as.data.frame(preprocessed)
-# preprocessedReduced <-
-#   read.csv(file = "C:/Users/Aldrin/Documents/preprocessed-red.csv", head =
-#              TRUE, sep = ",")
-# preprocessedDFReduced <- as.data.frame(preprocessedReduced)
+preprocessed <-
+  read.csv(file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed-gen-1040am.csv", head =
+             TRUE, sep = ",")
+preprocessedDF <- as.data.frame(preprocessed)
+preprocessedReduced <-
+  read.csv(file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed-red.csv", head =
+             TRUE, sep = ",")
+preprocessedDFReduced <- as.data.frame(preprocessedReduced)
 #############--Training the General Vocabulary--######################
 set.seed(101) # Set Seed so that same sample can be reproduced in future also
 # Now Selecting 75% of data as sample from total 'n' rows of the data  
-sample <- sample.int(n = nrow(preprocessedDF), size = floor(.80*nrow(preprocessedDF)), replace = F)
-reduceSample <- sample.int(n = nrow(preprocessedDFReduced), size = floor(.80*nrow(preprocessedDF)), replace = F)
+sample <- sample.int(n = nrow(preprocessedDF), size = floor(.70*nrow(preprocessedDF)), replace = F)
+reduceSample <- sample.int(n = nrow(preprocessedDFReduced), size = floor(.70*nrow(preprocessedDFReduced)), replace = F)
 GeneralVocabTrain <- preprocessedDF[sample, ]
 GeneralVocabtest  <- preprocessedDF[-sample, ]
 ReducedVocabTrain <- preprocessedDFReduced[reduceSample, ]
@@ -120,28 +116,30 @@ naiveBayesFunction <- function(l,vocabTrain,vocabTest,targetTrain,targetTest,gen
       accuracy = accuracy + 1
     }
   }
+  
   if(l!=0){
-    cat(genOrRed," Vocabulary with Laplace Smoothing")
+    cat(genOrRed," Vocabulary with Laplace Smoothing\n")
   }else{
-    cat(genOrRed," Vocabulary without Laplace Smoothing")
+    cat(genOrRed," Vocabulary without Laplace Smoothing\n")
   }
   
   total_accuracy = accuracy/length(prediction)
-  cat("Accuracy: ",total_accuracy)
+  cat("Accuracy: ",total_accuracy,"\n")
   
   xtab <- table(prediction,targetTest)
+  xtab
   print("Confusion Matrix")
-  confusionMatrix(xtab)
+  print(confusionMatrix(xtab))
   
   print("Precision")
-  precision(xtab)
+  print(precision(xtab))
   print("Recall")
-  recall(xtab)
+  print(recall(xtab))
 }
 
 #General Vocab
-naiveBayesFunction(1,GeneralVocabTrain,GeneralVocabtest,GenTargetTrain,GenTargetTest,"General Vocabulary")
-naiveBayesFunction(0,GeneralVocabTrain,GeneralVocabtest,GenTargetTrain,GenTargetTest,"General Vocabulary")
+naiveBayesFunction(1,GeneralVocabTrain,GeneralVocabtest,GenTargetTrain,GenTargetTest,"General")
+naiveBayesFunction(0,GeneralVocabTrain,GeneralVocabtest,GenTargetTrain,GenTargetTest,"General")
 #Reduced Vocab
-naiveBayesFunction(1,ReducedVocabTrain,ReducedVocabTest,RedTargetTrain,RedTargetTest,"Reduced Vocabulary")
-naiveBayesFunction(0,ReducedVocabTrain,ReducedVocabTest,RedTargetTrain,RedTargetTest,"Reduced Vocabulary")
+naiveBayesFunction(1,ReducedVocabTrain,ReducedVocabTest,RedTargetTrain,RedTargetTest,"Reduced")
+naiveBayesFunction(0,ReducedVocabTrain,ReducedVocabTest,RedTargetTrain,RedTargetTest,"Reduced")

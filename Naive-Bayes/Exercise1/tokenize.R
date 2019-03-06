@@ -62,4 +62,30 @@ write.table(dataset1, file = "dtm.csv", na="", sep=",")
 #           max.words=200, random.order=FALSE, rot.per=0.35, 
 #           colors=brewer.pal(8, "Dark2"))
 preprocessedData <- cbind(tokenDF$is_spam,dataset1)
-write.table(preprocessedData, file = "preprocessed-red1040am.csv",row.names = FALSE, na="", sep=",")
+write.table(preprocessedData, file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed.csv",row.names = FALSE, na="", sep=",")
+
+
+##########for reduced################
+dtm1 = DocumentTermMatrix(text)
+dtm1 = removeSparseTerms(dtm1,0.95)
+#dtm1 = removeSparseTerms(dtm1,0.90)
+dataset1 = as.data.frame(as.matrix(dtm1))
+dataset_counts1 = as.data.frame(colSums(dataset1))
+dataset_counts1$word = rownames(dataset_counts1)
+
+colnames(dataset_counts1) = c("count","word")
+dataset_counts1 = dataset_counts1[c(2,1)] 
+dataset_counts1 = dataset_counts1 %>% arrange(-count)
+
+write.table(dataset1, file = "dtm.csv", na="", sep=",")
+#############
+# m <- as.matrix(dtm1)
+# v <- sort(rowSums(m),decreasing=TRUE)
+# d <- data.frame(word = names(v),freq=v)
+# #create word cloud
+# set.seed(1234)
+# wordcloud(words = dataset_counts1$word, freq = dataset_counts1$count, min.freq = 1,
+#           max.words=200, random.order=FALSE, rot.per=0.35, 
+#           colors=brewer.pal(8, "Dark2"))
+preprocessedData <- cbind(tokenDF$is_spam,dataset1)
+write.table(preprocessedData, file = "C:/Users/Aldrin/Desktop/school_folders/CS191-ML/trec07p/preprocessed-red.csv",row.names = FALSE, na="", sep=",")
