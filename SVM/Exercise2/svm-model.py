@@ -50,8 +50,8 @@ if __name__ == "__main__":
 
     #split test and training
     msg_train,msg_test,label_train,label_test = train_test_split(spamClassifier['text'],spamClassifier['is_spam'],test_size=0.25)
-    
-    gamma_params = [1,2,3,4,'auto']
+    print('Training set={:d}, Test Set={:d}'.format(len(msg_train),len(msg_test)))
+    gamma_params = [1,2,3]
     c_params = [1.0,0.75,0.5,0.25]
     kernel_params = ['linear','rbf','poly','sigmoid']
     df = pd.DataFrame(columns=['accuracy', 'precision', 'recall','gamma','kernel','cost'])    
