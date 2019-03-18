@@ -24,9 +24,9 @@ Output files are described in Spam_Classification_of_emails_using_Naive_Bayes_Al
 
 **Exercise 2: SVM**
 There is one(1) SVM Classifier presented here: 
-	- classifying emails as either ham or spam  (in Exercise1 folder)
+	- classifying emails as either ham or spam  (in Exercise2 folder)
 	
-      1. SVM Classifier in classifying emails as either ham or spam  (in Exercise1 folder)
+      1. SVM Classifier in classifying emails as either ham or spam  (in Exercise2 folder)
 	- There are 3 python scripts here:
 		*parse-email.py
 			- This python script parses the given emails in the dataset in a concurrent manner, and then saves the output CSV file with a filename: "parsedEmails.csv".
